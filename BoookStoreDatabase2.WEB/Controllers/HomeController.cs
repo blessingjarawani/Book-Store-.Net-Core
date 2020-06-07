@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BoookStoreDatabase2.WEB.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using BoookStoreDatabase2.DAL.Entities;
 
 namespace BoookStoreDatabase2.WEB.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpContextAccessor httpContextAccessor,
+            UserManager<ApplicationUser> userManager) : base(httpContextAccessor, userManager)
         {
             _logger = logger;
         }

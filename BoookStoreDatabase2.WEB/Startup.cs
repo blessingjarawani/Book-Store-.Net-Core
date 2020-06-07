@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using BoookStoreDatabase2.DAL.Context;
 using BoookStoreDatabase2.DAL.Entities;
 using BoookStoreDatabase2.DAL.SeedData;
+using Microsoft.AspNetCore.Http;
 
 namespace BoookStoreDatabase2.WEB
 {
@@ -42,7 +43,12 @@ namespace BoookStoreDatabase2.WEB
  
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
         }
+
+
 
         public void ConfigureDatabase(IServiceCollection services)
         {

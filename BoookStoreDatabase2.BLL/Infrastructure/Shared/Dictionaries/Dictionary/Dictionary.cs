@@ -18,5 +18,11 @@ namespace BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Dictionary
             Books = 1,
             Movies = 2
         }
+
+        public enum Roles
+        {
+            Employee = 0,
+            Customer = 1
+        }
     }
 }

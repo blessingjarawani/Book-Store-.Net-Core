@@ -30,6 +30,13 @@ namespace BoookStoreDatabase2.DAL.Repositories
             return _mapper.Map<List<ProductsDTO>>(productsResult);
         }
 
+
+        public async Task<ProductsDTO> GetProduct(int id)
+        {
+            var productsResult = await Task.Run(() => _dbContext.Products.FirstOrDefault(x => x.Id == id));
+            return _mapper.Map<ProductsDTO>(productsResult);
+        }
+
         public async Task<int> AddOrUpdate(ProductsDTO productsDTO)
         {
             var product = _dbContext.Products.FirstOrDefault(x => x.Id == productsDTO.Id);
@@ -39,7 +46,7 @@ namespace BoookStoreDatabase2.DAL.Repositories
             }
             else
             {
-                AddProduct(productsDTO);
+               product = AddProduct(productsDTO);
             }
 
             return await SaveChangesAsync() == true ? product.Id : 0;
@@ -54,7 +61,7 @@ namespace BoookStoreDatabase2.DAL.Repositories
             product.ProductType = productsDTO.ProductType;
             product.Price = productsDTO.Price;
         }
-        private void AddProduct(ProductsDTO productsDTO)
+        private Product AddProduct(ProductsDTO productsDTO)
         {
             var product = new Product
             {
@@ -67,9 +74,12 @@ namespace BoookStoreDatabase2.DAL.Repositories
                 Price = productsDTO.Price
             };
             _dbContext.Products.Add(product);
+            return product;
         }
 
-        private int GenerateId() => _dbContext.Products.LastOrDefault()?.Id + 1 ?? 1;
+        private int GenerateId() =>
+            _dbContext.Products.OrderByDescending(x => x.Id).FirstOrDefault()?.Id + 1 ?? 1;
+
 
     }
 }

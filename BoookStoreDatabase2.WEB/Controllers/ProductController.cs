@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Interfaces;
 using BoookStoreDatabase2.BLL.Models.DTO;
 using BoookStoreDatabase2.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -16,11 +17,20 @@ namespace BoookStoreDatabase2.WEB.Controllers
     public class ProductController : Controller
     {
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private IProductsService _productsService { get; }
 
-        public ProductController(IWebHostEnvironment hostingEnvironment)
+        public ProductController(IWebHostEnvironment hostingEnvironment, IProductsService productsService)
         {
             _hostingEnvironment = hostingEnvironment;
+            _productsService = productsService;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            var result = await _productsService.GetProducts();
+            return View(result.Data);
+        }
+
         public IActionResult Movies()
         {
             return View();
@@ -31,12 +41,12 @@ namespace BoookStoreDatabase2.WEB.Controllers
             return View();
         }
         [HttpGet]
-        public ViewResult Create()
+        public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateProductViewModel model)
+        public async Task<IActionResult> Create(CreateProductViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -58,13 +68,21 @@ namespace BoookStoreDatabase2.WEB.Controllers
                     Quantity = model.Quantity
                 };
 
-                _employeeRepository.Add(newEmployee);
-                return RedirectToAction("details", new { id = newEmployee.Id });
+                var result = await _productsService.AddProduct(product);
+                if (result.Success)
+                    return RedirectToAction("details", new { id = result.Data });
+                return View();
             }
 
             return View();
         }
 
+
+        [HttpGet]
+        public async Task <IActionResult> Details(int id)
+        {
+            var result = await _productsService.GetProduct(id);
+            return View(result.Data);
+        }
     }
-}
 }

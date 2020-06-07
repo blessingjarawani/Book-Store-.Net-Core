@@ -15,6 +15,11 @@ using BoookStoreDatabase2.DAL.Context;
 using BoookStoreDatabase2.DAL.Entities;
 using BoookStoreDatabase2.DAL.SeedData;
 using Microsoft.AspNetCore.Http;
+using BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Interfaces;
+using BoookStoreDatabase2.DAL.Repositories;
+using BoookStoreDatabase2.BLL.Infrastructure.Shared.Services;
+using AutoMapper;
+using BoookStoreDatabase2.DAL.Mappers;
 
 namespace BoookStoreDatabase2.WEB
 {
@@ -43,9 +48,12 @@ namespace BoookStoreDatabase2.WEB
  
             services.AddControllersWithViews();
             services.AddRazorPages();
-
+            services.AddTransient<IProductsRepository, ProductsRepository>();
+            services.AddTransient<IProductsService, ProductsService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
+            services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(),
+                             AppDomain.CurrentDomain.GetAssemblies());
         }
 
 

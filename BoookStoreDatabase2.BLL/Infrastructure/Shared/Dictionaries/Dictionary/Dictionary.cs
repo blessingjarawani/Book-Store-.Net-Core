@@ -7,7 +7,7 @@ namespace BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Dictionary
 {
     public static class Dictionary
     {
-        public enum OrderStatus
+        public enum CartStatus
         {
             Inprogress = 0,
             Proccessed = 1

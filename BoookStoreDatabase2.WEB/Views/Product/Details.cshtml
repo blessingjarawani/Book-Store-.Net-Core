@@ -22,14 +22,14 @@
             </div>
             <div class="card-footer text-center">
                 <a asp-controller="product" asp-action="index" class="btn btn-primary">Back</a>
-              @if (User.IsInRole("Customer"))
-              {
-                <a asp-controller="product" asp-action="index" class="btn btn-success">Order</a>
-              }
+                @if (User.IsInRole("Customer"))
+                {
+                    <a asp-controller="product" asp-action="index" class="btn btn-success">Add to Cart</a>
+                }
                 @if (User.IsInRole("Employee"))
                 {
                     <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
-                   
+
                 }
             </div>
         </div>

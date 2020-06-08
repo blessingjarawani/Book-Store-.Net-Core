@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Interfaces
 {
-    public   interface IOrdersRepository
+    public interface ICartService
     {
     }
 }

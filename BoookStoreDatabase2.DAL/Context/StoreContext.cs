@@ -14,7 +14,6 @@ namespace BoookStoreDatabase2.DAL.Context
     public class StoreContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Product> Products { get; set; }
-        public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<OrderLines> OrderLines { get; set; }
@@ -26,68 +25,6 @@ namespace BoookStoreDatabase2.DAL.Context
         {
             base.OnModelCreating(builder);
             builder.UseSerialColumns();
-            builder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Name = "Teminator 2",
-                    ImagePath = "",
-                    IsActive = true,
-                    Price = 2,
-                    Quantity = 10
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Romeo and Juliet",
-                    ImagePath = "",
-                    IsActive = true,
-                    Price = 10,
-                    Quantity = 20,
-                    ProductType = ProductType.Books
-                },
-                  new Product
-                  {
-                      Id = 3,
-                      Name = "Mpho Search",
-                      ImagePath = "",
-                      IsActive = true,
-                      Price = 2,
-                      Quantity = 20,
-                      ProductType = ProductType.Books
-                  },
-                    new Product
-                    {
-                        Id = 4,
-                        Name = "Mick Mouse",
-                        ImagePath = "",
-                        IsActive = true,
-                        Price = 1,
-                        Quantity = 20,
-                        ProductType = ProductType.Movies
-                    },
-                      new Product
-                      {
-                          Id = 5,
-                          Name = "Queen Sono",
-                          ImagePath = "",
-                          IsActive = true,
-                          Price = 20,
-                          Quantity = 100,
-                          ProductType = ProductType.Movies
-                      },
-                        new Product
-                        {
-                            Id = 6,
-                            Name = "C# for Dummies",
-                            ImagePath = "",
-                            IsActive = true,
-                            Price = 10,
-                            Quantity = 20,
-                            ProductType = ProductType.Books
-                        }
-
-               );
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

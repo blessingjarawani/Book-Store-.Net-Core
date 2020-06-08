@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BoookStoreDatabase2.DAL.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20200606135007_firstMigration")]
-    partial class firstMigration
+    [Migration("20200608181806_adjustOrderLine")]
+    partial class adjustOrderLine
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,12 +161,15 @@ namespace BoookStoreDatabase2.DAL.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.Order", b =>
+            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.OrderLines", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
+
+                    b.Property<int>("CartStatus")
+                        .HasColumnType("integer");
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("integer");
@@ -177,39 +180,10 @@ namespace BoookStoreDatabase2.DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("OrderNo")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.OrderLines", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
                     b.Property<int>("Quantity")
@@ -220,7 +194,7 @@ namespace BoookStoreDatabase2.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("ProductId");
 
@@ -404,26 +378,19 @@ namespace BoookStoreDatabase2.DAL.Migrations
                         .HasForeignKey("EmployeeId");
                 });
 
-            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.Order", b =>
+            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.OrderLines", b =>
                 {
                     b.HasOne("BoookStoreDatabase2.DAL.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BoookStoreDatabase2.DAL.Entities.OrderLines", b =>
-                {
-                    b.HasOne("BoookStoreDatabase2.DAL.Entities.Order", "Order")
-                        .WithMany("OrderLines")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.HasOne("BoookStoreDatabase2.DAL.Entities.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

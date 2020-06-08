@@ -1,0 +1,42 @@
+[
+  {
+    "outputFileName": "css/dataTablesStyles.css",
+    "inputFiles": [
+      "css/dataTables/dataTables.bootstrap.css",
+      "css/dataTables/dataTables.responsive.css",
+      "css/dataTables/dataTables.tableTools.min.css"
+
+    ]
+  },
+  {
+    "outputFileName": "css/toastrstyles.css",
+    "inputFiles": [
+      "css/toastr/toastr.min.css"
+    ]
+  },
+  {
+    "outputFileName": "js/dataTables.js",
+    "inputFiles": [
+      "lib/dataTables/jquery.dataTables.js",
+      "lib/dataTables/dataTables.bootstrap.js",
+      "lib/dataTables/dataTables.responsive.js",
+      "lib/dataTables/dataTables.tableTools.min.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "js/toastr.js",
+    "inputFiles": [
+      "lib/toastr/toastr.min.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Dictionary.Dictionary;
 
 namespace BoookStoreDatabase2.WEB.Controllers
 {
@@ -25,20 +26,23 @@ namespace BoookStoreDatabase2.WEB.Controllers
             _productsService = productsService;
         }
 
+        [Authorize(Roles = "Employee")]
         public async Task<IActionResult> Index()
         {
             var result = await _productsService.GetProducts();
             return View(result.Data);
         }
 
-        public IActionResult Movies()
+        public async Task<IActionResult> Movies()
         {
-            return View();
+            var result = await _productsService.GetProducts(ProductType.Movies.ToString());
+            return View("index", result.Data);
         }
 
-        public IActionResult Books()
+        public async Task<IActionResult> Books()
         {
-            return View();
+            var result = await _productsService.GetProducts(ProductType.Books.ToString());
+            return View("index", result.Data);
         }
         [HttpGet]
         public IActionResult Create()
@@ -61,6 +65,7 @@ namespace BoookStoreDatabase2.WEB.Controllers
 
                 var product = new ProductsDTO
                 {
+                    Id = model.Id,
                     Name = model.Name,
                     ImagePath = uniqueFileName,
                     ProductType = model.ProductType,
@@ -79,10 +84,30 @@ namespace BoookStoreDatabase2.WEB.Controllers
 
 
         [HttpGet]
-        public async Task <IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var result = await _productsService.GetProduct(id);
             return View(result.Data);
+        }
+
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _productsService.GetProduct(id);
+            if (!result.Success)
+                return View();
+            var editViewModel = new EditProductViewModel
+            {
+                ExistingPhotoPath = result.Data.ImagePath,
+                Id = result.Data.Id,
+                Name = result.Data.Name,
+                ProductType = result.Data.ProductType,
+                Quantity = result.Data.Quantity,
+                Price = result.Data.Price
+            };
+
+            return View(editViewModel);
         }
     }
 }

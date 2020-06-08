@@ -5,9 +5,14 @@
     <UserSecretsId>aspnet-BoookStoreDatabase2.WEB-E2FF2124-585A-49B1-AAF8-A2D5F4CA9D16</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\chosenStyles.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Enums.NET" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.0.0" />
@@ -26,7 +31,7 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <None Include="wwwroot\lib\toastr\toastr.min.js" />
   </ItemGroup>
 
 </Project>

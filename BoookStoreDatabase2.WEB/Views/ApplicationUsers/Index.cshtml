@@ -1,0 +1,22 @@
+﻿@using BoookStoreDatabase2.BLL.Models.DTO;
+@model List<ApplicationUsersDTO>
+
+@{
+    ViewBag.Title = "Users List";
+}
+<div class="card-deck">
+    @foreach (var user in Model)
+    {
+        var photoPath = "~/images/noimage.png";
+        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+            <div class="card-header">
+                <h5>@user.LastName  @user.FirstName</h5>
+                <h5>@user.UserType</h5>
+            </div>
+            <img class="card-img-top imageThumbnail" src="@photoPath"
+                 asp-append-version="true" />
+        </div>
+    }
+</div>
+
+

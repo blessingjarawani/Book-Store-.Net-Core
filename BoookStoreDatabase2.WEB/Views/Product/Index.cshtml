@@ -4,9 +4,11 @@
 @{
     ViewBag.Title = "Products List";
 }
-<a asp-controller="product" asp-action="create"
-   class="btn btn-primary m-1">Create</a>
-
+@if (User.IsInRole("Employee"))
+{
+    <a asp-controller="product" asp-action="create"
+       class="btn btn-primary m-1">Create</a>
+}
 <div class="card-deck">
     @foreach (var product in Model)
     {
@@ -21,8 +23,18 @@
             <div class="card-footer text-center">
                 <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"
                    class="btn btn-primary m-1">View</a>
-                <a href="#" class="btn btn-primary m-1">Edit</a>
-                <a href="#" class="btn btn-danger m-1">Delete</a>
+                @if (User.IsInRole("Customer"))
+                {
+                    <a href="#" class="btn btn-success m-1">Order</a>
+                }
+
+                @if (User.IsInRole("Employee"))
+                {
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Edit</a>
+
+                }
+
+
             </div>
         </div>
     }

@@ -52,6 +52,8 @@ namespace BoookStoreDatabase2.WEB
             services.AddTransient<IProductsService, ProductsService>();
             services.AddTransient<IApplicationUsersRepository, ApplicationUsersRepository>();
             services.AddTransient<IApplicationUsersService, ApplicationUsersService>();
+            services.AddTransient<ICartRepository, CartRepository>();
+            services.AddTransient<ICartService, CartService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(cfg => cfg.AddProfile<MappingProfile>(),

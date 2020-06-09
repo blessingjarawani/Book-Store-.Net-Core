@@ -28,7 +28,7 @@ namespace BoookStoreDatabase2.WEB.Controllers
         {
             var userId = _httpContextAccessor.HttpContext.User?.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userDetails = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext?.User);
-            return userDetails?.Customer != null ? userDetails.Customer.Id : userDetails.Employee.Id;
+            return userDetails.CustomerId.HasValue ? userDetails.CustomerId.Value : userDetails.EmployeeId.Value;
         }
         public async Task<List<Roles>> GetUserRoles()
         {

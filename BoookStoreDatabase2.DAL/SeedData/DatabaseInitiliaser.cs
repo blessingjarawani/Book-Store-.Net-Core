@@ -21,24 +21,32 @@ namespace BoookStoreDatabase2.DAL.SeedData
             {
                new ApplicationUser
                {
-                 Email = "jab@gmail.com",
-                 UserName = "jab@gmail.com",
-                 Employee = new Employee{Id = 1, FirstName="Blessing", LastName ="Rita", IsActive =true, DOB = DateTime.Parse("1994-01-01"), DateHired = DateTime.Parse("2000-01-01")}
+                 Email = "jahb@gmail.com",
+                 UserName = "Jahb",
+                 Employee = new Employee{Id = 4, FirstName="Blessing", LastName ="Rita", IsActive =true, DOB = DateTime.Parse("1994-01-01"), DateHired = DateTime.Parse("2000-01-01")}
                },
                 new ApplicationUser {
                  Email = "bj@gmail.com",
-                 UserName = "bj@gmail.com",
-                 Employee = new Employee{Id =2,FirstName="Prosper", LastName ="Ruth", IsActive =true, DOB = DateTime.Parse("1994-01-01"), DateHired = DateTime.Parse("2000-01-01")}
+                 UserName = "Blessing",
+                 Employee = new Employee{Id =5,FirstName="Prosper", LastName ="Ruth", IsActive =true, DOB = DateTime.Parse("1994-01-01"), DateHired = DateTime.Parse("2000-01-01")}
                },
                new ApplicationUser   {
                  Email = "luck@gmail.com",
-                 UserName = "luck@gmail.com",
-                 Customer = new Customer{Id =1,FirstName="LuckMore", LastName ="Tom", IsActive =true, DOB = DateTime.Parse("1994-01-01")}
+                 UserName = "Luck",
+                  
+                 Customer = new Customer{Id =4,FirstName="LuckMore", LastName ="Tom", IsActive =true, DOB = DateTime.Parse("1994-01-01")}
                },
                 new ApplicationUser   {
-                 Email = "jahb@gmail.com",
-                 UserName = "jahb@gmail.com",
-                 Customer = new Customer{Id =2, FirstName="John", LastName ="Roster", IsActive =true, DOB = DateTime.Parse("1994-01-01")}
+                 Email = "josphat@gmail.com",
+                 UserName = "Josphat",
+                 
+                 Customer = new Customer{Id =5, FirstName="John", LastName ="Roster", IsActive =true, DOB = DateTime.Parse("1994-01-01")}
+               },
+                new ApplicationUser   {
+                 Email = "bless@gmail.com",
+                 UserName = "Bless",
+                
+                 Customer = new Customer{Id =6, FirstName="Bless", LastName ="Bless", IsActive =true, DOB = DateTime.Parse("1994-01-01")}
                },
             };
             users.ForEach(x =>
@@ -48,7 +56,7 @@ namespace BoookStoreDatabase2.DAL.SeedData
                    var result = userManager.CreateAsync(x, "password").Result;
                    if (result.Succeeded)
                    {
-                       var role = x.Customer !=null? "Customer" : "Employee";
+                       var role = x.Customer != null ? "Customer" : "Employee";
                        userManager.AddToRoleAsync(x, role).Wait();
                    }
 

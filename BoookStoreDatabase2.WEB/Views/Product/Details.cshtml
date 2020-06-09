@@ -24,11 +24,11 @@
                 <a asp-controller="product" asp-action="index" class="btn btn-primary">Back</a>
                 @if (User.IsInRole("Customer"))
                 {
-                    <a asp-controller="product" asp-action="index" class="btn btn-success">Add to Cart</a>
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-success">Add to Cart</a>
                 }
                 @if (User.IsInRole("Employee"))
                 {
-                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+                <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
 
                 }
             </div>

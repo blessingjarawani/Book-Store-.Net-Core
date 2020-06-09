@@ -13,5 +13,8 @@ namespace BoookStoreDatabase2.BLL.Models.DTO
         public int Quantity { get; set; }
         public double Price { get; set; }
         public ProductType ProductType { get; set; }
+        public bool IsValid => 
+         !string.IsNullOrWhiteSpace(Name) &&
+          Price > 0 && Quantity > 0;
     }
 }

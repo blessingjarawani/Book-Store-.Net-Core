@@ -1,0 +1,67 @@
+﻿@using BoookStoreDatabase2.BLL.Models.DTO;
+@model List<OrderLineDTO>;
+@{
+    ViewData["Title"] = "My Cart";
+}
+
+<h1>My Cart</h1>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-sm table-striped table-hover border-bottom">
+            <thead>
+                <tr>
+                    <th class="d-none d-lg-table-cell">
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        ProductType
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model[0].Products.Count > 0)
+                {
+                    foreach (var item in Model[0].Products)
+                    {
+                        <tr>
+                            <td class="d-none d-lg-table-cell">
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductType)
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            No Items Found
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

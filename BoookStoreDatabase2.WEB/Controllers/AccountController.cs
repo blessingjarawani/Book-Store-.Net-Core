@@ -36,7 +36,7 @@ namespace BoookStoreDatabase2.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var loginResult = await _signInManager.PasswordSignInAsync(loginViewModel.Email,
+                var loginResult = await _signInManager.PasswordSignInAsync(loginViewModel.UserName,
                     loginViewModel.Password, loginViewModel.RememberMe, false);
 
                 if (loginResult.Succeeded)

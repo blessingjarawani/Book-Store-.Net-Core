@@ -50,7 +50,7 @@ namespace BoookStoreDatabase2.BLL.Infrastructure.Shared.Services
         {
             try
             {
-                if (productsDTO != null)
+                if (productsDTO != null && productsDTO.IsValid)
                 {
                     var result = await _productsRepository.AddOrUpdate(productsDTO);
                     return result > 0 ? new Response<int> { Success = true, Data = result } : new Response<int> { Success = false, Message = "Failed to Add Product" };

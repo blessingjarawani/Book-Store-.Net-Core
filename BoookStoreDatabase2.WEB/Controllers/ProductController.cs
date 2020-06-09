@@ -27,9 +27,9 @@ namespace BoookStoreDatabase2.WEB.Controllers
         }
 
         [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> Index(bool ? price = null , bool ? name = null)
+        public async Task<IActionResult> Index(bool? price = null, bool? name = null)
         {
-            
+
             var result = await _productsService.GetProducts();
             if (price.HasValue && price.Value == true)
             {
@@ -54,14 +54,22 @@ namespace BoookStoreDatabase2.WEB.Controllers
             {
                 result.Data = result.Data?.OrderBy(x => x.Name).ToList();
             }
-            return View("index", result.Data);
+            return View(result.Data);
         }
 
-       [HttpGet]
-        public async Task<IActionResult> Books()
+        [HttpGet]
+        public async Task<IActionResult> Books(bool? price = null, bool? name = null)
         {
             var result = await _productsService.GetProducts(ProductType.Books.ToString());
-            return View("index", result.Data);
+            if (price.HasValue && price.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Price).ToList();
+            }
+            if (name.HasValue && name.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Name).ToList();
+            }
+            return View(result.Data);
         }
         [HttpGet]
         public IActionResult Create()

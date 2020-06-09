@@ -27,18 +27,37 @@ namespace BoookStoreDatabase2.WEB.Controllers
         }
 
         [Authorize(Roles = "Employee")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(bool ? price = null , bool ? name = null)
         {
+            
             var result = await _productsService.GetProducts();
+            if (price.HasValue && price.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Price).ToList();
+            }
+            if (name.HasValue && name.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Name).ToList();
+            }
             return View(result.Data);
         }
 
-        public async Task<IActionResult> Movies()
+        [HttpGet]
+        public async Task<IActionResult> Movies(bool? price = null, bool? name = null)
         {
             var result = await _productsService.GetProducts(ProductType.Movies.ToString());
+            if (price.HasValue && price.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Price).ToList();
+            }
+            if (name.HasValue && name.Value == true)
+            {
+                result.Data = result.Data?.OrderBy(x => x.Name).ToList();
+            }
             return View("index", result.Data);
         }
 
+       [HttpGet]
         public async Task<IActionResult> Books()
         {
             var result = await _productsService.GetProducts(ProductType.Books.ToString());

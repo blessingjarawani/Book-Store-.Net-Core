@@ -1,5 +1,11 @@
 [
   {
+    "outputFileName": "css/fontawesome.css",
+    "inputFiles": [
+         "font-awesome/css/font-awesome.css",
+    ]
+  },
+  {
     "outputFileName": "css/dataTablesStyles.css",
     "inputFiles": [
       "css/dataTables/dataTables.bootstrap.css",

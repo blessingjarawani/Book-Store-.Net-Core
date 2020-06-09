@@ -1,41 +1,48 @@
 ﻿@using BoookStoreDatabase2.BLL.Models.DTO;
+@using BoookStoreDatabase2.BLL.Infrastructure.Shared.Dictionaries.Dictionary;
 @model List<ProductsDTO>
 
 @{
     ViewBag.Title = "Products List";
 }
 @if (User.IsInRole("Employee"))
-{
-<a asp-controller="product" asp-action="create"
-   class="btn btn-primary m-1">Create</a>
+{ 
+    <div class="ibox-title">
+        <a asp-controller="product" asp-action="create"
+           class="btn btn-primary m-1">Create</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-price="true" class="btn btn-primary fa fa-sort">Price</a>
+        <a asp-controller="Product" asp-action="Index" asp-route-name="true" class="btn btn-primary fa fa-sort">Name</a>
+    </div>
 }
+
+
 <div class="card-deck">
     @foreach (var product in Model)
     {
         var photoPath = "~/images/" + (product.ImagePath ?? "noimage.jpg");
-    <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
-        <div class="card-header">
-            <h5>@product.Name</h5>
-            <h5>@product.Price zl</h5>
-        </div>
-        <img class="card-img-top imageThumbnail" src="@photoPath"
-             asp-append-version="true" />
-        <div class="card-footer text-center">
-            <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"
-               class="btn btn-primary m-1">View</a>
-            @if (User.IsInRole("Customer"))
+        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+            <div class="card-header">
+                <h5>@product.Name</h5>
+                <h5>@product.Price zl</h5>
+            </div>
+            <img class="card-img-top imageThumbnail" src="@photoPath"
+                 asp-append-version="true" />
+            <div class="card-footer text-center">
+                <a asp-controller="product" asp-action="details" asp-route-id="@product.Id"
+                   class="btn btn-primary m-1">View</a>
+                @if (User.IsInRole("Customer"))
                 {
-            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-success m-1">Add to Cart</a>
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-success m-1">Add to Cart</a>
                 }
 
-            @if (User.IsInRole("Employee"))
+                @if (User.IsInRole("Employee"))
                 {
-            <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Edit</a>
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Edit</a>
 
                 }
 
 
+            </div>
         </div>
-    </div>
     }
 </div>
